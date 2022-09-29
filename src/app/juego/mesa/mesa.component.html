@@ -1,0 +1,8 @@
+<app-header titulo="BlackJack" colorFondo="dark"></app-header>
+<div class="container-fluid mesa p-5 text-light">
+    <button class="btn btn-secondary" (click)="agregarCarta()">Agregar</button>
+    <div class="container">
+        <!-- <app-carta [carta]="{id:1,valor:'K', palo: 1}"></app-carta> -->
+        <app-carta *ngFor="let c of cartas" [carta]="c"></app-carta>
+    </div>
+</div>
