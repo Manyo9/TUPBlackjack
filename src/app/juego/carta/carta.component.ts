@@ -28,11 +28,11 @@ export class CartaComponent implements OnInit {
         paloString = 'spades';
         break;
     
-        default:
-          paloString = '';
-          break;
-        }
-      switch (this.carta.valor) {
+      default:
+        paloString = '';
+        break;
+      }
+      switch (this.carta.valorCarta) {
         case 'A':
           valorString = 'ace'
           break;
@@ -45,12 +45,16 @@ export class CartaComponent implements OnInit {
         case 'K':
           valorString = 'king'
           break;
-      
         default:
-          valorString = this.carta.valor;
+          valorString = this.carta.valorCarta;
           break;
       }
-      this.rutaImagen = '../assets/cartas/'+valorString+'_of_'+paloString+'.png';
+
+      if (paloString==='') {
+        this.rutaImagen = '../assets/cartas/flipped.png';
+      } else {
+        this.rutaImagen = '../assets/cartas/'+valorString+'_of_'+paloString+'.png';
+      }
     }
     //'../assets/cartas/'+valorString+'_of_'+paloString+'.png'
     

@@ -2,6 +2,7 @@ import { PathLocationStrategy } from "@angular/common";
 
 export class Carta {
     id?: number;
-    valor: string;
+    valorCarta: string;
+    valorNumerico: number;
     palo: number;
 }
