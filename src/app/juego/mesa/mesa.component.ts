@@ -59,6 +59,7 @@ export class MesaComponent implements OnInit {
       for (let carta of jugada) {
         if (carta.valorNumerico === 11){
           carta.valorNumerico = 1;
+          this.terminoJugada = this.calcularPuntaje(jugada) === 21;  //En caso de que la ultima carta sea un as teniendo un puntaje de 20
           return;
         }
       }
