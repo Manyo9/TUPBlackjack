@@ -8,13 +8,13 @@
       <h1 class="display-6 p-3">Empezar</h1>
     </button>
   </div>
-  <h1 class="display-6 text-center" *ngIf="empezo">Jugada del croupier. Su puntaje: {{ croupier.puntos }}</h1>
+  <h1 class="display-6 text-center" *ngIf="empezo">Jugada del croupier. Puntaje: <strong>{{ croupier.puntos }}</strong></h1>
   <div class="container" class="d-flex justify-content-center">
     <app-carta [carta]="carta" *ngFor="let carta of croupier.mano"></app-carta>
   </div>
 
   <div class="py-5">
-    <h1 class="display-6 text-center" *ngIf="empezo">Tu jugada. Tu puntaje: {{ jugador.puntos }}</h1>
+    <h1 class="display-6 text-center" *ngIf="empezo">Tu jugada. Puntaje: <strong>{{ jugador.puntos }}</strong></h1>
     <div class="container" class="d-flex justify-content-center">
       <app-carta [carta]="jarta" *ngFor="let jarta of jugador.mano"></app-carta>
     </div>
@@ -24,8 +24,8 @@
       [disabled]="jugador.terminoJugada">Pedir carta</button>
     <button class="btn btn-outline-danger mx-3 text-white" (click)="terminarJugada()" *ngIf="empezo"
       [disabled]="jugador.terminoJugada">Plantarse</button>
-    <button #btncon class="btn btn-outline-warning mx-3" (click)="continuar()"
-      *ngIf="empezo" [disabled]="!jugador.terminoJugada || jugador.perdio || turnoCroupier">Jugada Croupier</button>
+    <button #btncon class="btn btn-outline-warning mx-3 text-white" (click)="continuar()"
+      *ngIf="empezo" [disabled]="!jugador.terminoJugada || turnoCroupier">Jugada Croupier</button>
     <button class="btn btn-outline-primary mx-3 text-white" (click)="reiniciar()" *ngIf="empezo">Reiniciar</button>
   </div>
 </div>

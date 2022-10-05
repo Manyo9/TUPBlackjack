@@ -5,7 +5,7 @@ import { MesaComponent } from './juego/mesa/mesa.component';
 import { NoEncontradoComponent } from './no-encontrado/no-encontrado.component';
 
 const routes: Routes = [
-  {path: 'mesa', component: MesaComponent},
+  {path: 'jugar', component: MesaComponent},
   {path: 'inicio', component: InicioComponent},
   {path:'', redirectTo: 'inicio', pathMatch: 'full'},
   {path: '**', component: NoEncontradoComponent}
