@@ -23,23 +23,21 @@ export class MesaComponent implements OnInit {
   private actualizarPuntajes(): void {
     this.puntajeJugador = this.calcularPuntaje(this.jugadaJugador);
     this.puntajeCroupier = this.calcularPuntaje(this.jugadaCroupier);
-  
   }
-  private agregarCarta(n : number): void {
-    if(n === 1){
-      this.jugadaJugador.push(this.cartaService.obtenerCartaAleatoria());
-    }else if (n === 2){
-      this.jugadaCroupier.push(this.cartaService.obtenerCartaAleatoria());
-    } else {
-      this.jugadaCroupier.push(this.cartaService.obtenerDadaVuelta());
-    }
+  
+  private agregarCarta(jugada : Carta[]): void {
+    jugada.push(this.cartaService.obtenerCartaAleatoria());
+  }
+
+  private agregarCartaDadaVuelta(jugada : Carta[]): void {
+    jugada.push(this.cartaService.obtenerDadaVuelta());
   }
 
   repartir() : void {
-    this.agregarCarta(1);
-    this.agregarCarta(1);
-    this.agregarCarta(3);
-    this.agregarCarta(2);
+    this.agregarCarta(this.jugadaJugador);
+    this.agregarCarta(this.jugadaJugador);
+    this.agregarCartaDadaVuelta(this.jugadaCroupier);
+    this.agregarCarta(this.jugadaCroupier);
     this.empezo=true;
     this.chequearPuntos(this.jugadaJugador);
     this.actualizarPuntajes();
@@ -71,8 +69,26 @@ export class MesaComponent implements OnInit {
   }
 
   pedirCarta() : void{
-    this.agregarCarta(1);
+    this.agregarCarta(this.jugadaJugador);
     this.chequearPuntos(this.jugadaJugador);
     this.actualizarPuntajes();
+  }
+
+  terminarJugada() : void {
+    this.terminoJugada = true;
+  }
+
+  reiniciar() : void {
+    this.jugadaJugador = [];
+    this.jugadaCroupier = [];
+    this.puntajeJugador = 0;
+    this.puntajeCroupier = 0;
+    this.empezo = false;
+    this.perdio = false;
+    this.terminoJugada = false;
+  }
+
+  continuar() : void {
+
   }
 }
