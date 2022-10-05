@@ -19,6 +19,9 @@ export class MesaComponent implements OnInit {
   turnoCroupier : boolean = false;
   terminoCroupier : boolean = false;
   perdioCroupier : boolean = false;
+  terminoJuego : boolean = false;
+  mensajeFinal : string;
+
   constructor(private cartaService: CartaService) { }
 
   
@@ -111,9 +114,49 @@ export class MesaComponent implements OnInit {
     this.turnoCroupier = false;
     this.terminoCroupier = false;
     this.perdioCroupier = false;
+    this.terminoJuego = false;
   }
 
   private chequearGanador(): void{
+    if(this.perdioCroupier && !this.perdioJugador){
+      //gano jugador
+      this.mensajeFinal = "Ganaste! Felicidades!";
+    }
+    else if (this.perdioJugador && !this.perdioCroupier){
+      //gano croupier
+      this.mensajeFinal = "Perdiste! Mejor suerte la próxima!";
+    }
+    else if (!this.perdioJugador && !this.perdioCroupier) {
+      //ninguno se pasó
+      if (this.puntajeJugador === this.puntajeCroupier) {
+        //igual puntaje
+        if(this.puntajeJugador === 21) {
+          if(this.jugadaJugador.length === this.jugadaCroupier.length) {
+            //empate
+            this.mensajeFinal = "Empataron!";
+          }
+          else if(this.jugadaJugador.length > this.jugadaCroupier.length) {
+            //gano croupier
+            this.mensajeFinal = "Perdiste! Mejor suerte la próxima!";
+          }
+          else{
+            //gano jugador
+            this.mensajeFinal = "Ganaste! Felicidades!";
+          }
+        }
+        //empate
+        this.mensajeFinal = "Empataron!";
+      }
+      else if (this.puntajeJugador > this.puntajeCroupier) {
+        //gana jugador
+        this.mensajeFinal = "Ganaste! Felicidades!";
+      }
+      else {
+        //gana croupier
+        this.mensajeFinal = "Perdiste! Mejor suerte la próxima!";
+      }
+    }
+    this.terminoJuego = true;
   }
 
   private jugarCroupier(){

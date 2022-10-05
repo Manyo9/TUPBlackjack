@@ -1,4 +1,7 @@
 <app-header titulo="BlackJack" colorFondo="dark"></app-header>
+<div *ngIf="terminoJuego" class="alert alert-success text-center alert-dismissible fade show m-0" role="alert">
+  {{mensajeFinal}}
+</div>
 <div class="container-fluid mesa p-5 text-light">
   <div class="">
     <button class="btn btn-dark center" (click)="repartir()" *ngIf="!empezo">
