@@ -27,7 +27,5 @@
     <button #btncon class="btn btn-outline-warning mx-3 text-white" (click)="continuar()"
       *ngIf="empezo" [disabled]="!jugador.terminoJugada || turnoCroupier">Jugada Croupier</button>
     <button class="btn btn-outline-primary mx-3 text-white" (click)="reiniciar()" *ngIf="empezo">Reiniciar</button>
-    J: P {{ jugador.puntos }}, CP {{ jugador.calcularPuntos() }}, BJ {{ jugador.tieneBlackjack() }}, Prd {{jugador.perdio}}<br>
-    C: P {{ croupier.puntos }}, CP {{ croupier.calcularPuntos() }}, BJ {{ croupier.tieneBlackjack() }}, Prd {{croupier.perdio}}
   </div>
 </div>
