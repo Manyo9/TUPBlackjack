@@ -52,6 +52,7 @@ export class MesaComponent implements OnInit {
     this.empezo = false;
     this.turnoCroupier = false;
     this.terminoJuego = false;
+    this.mensajeFinal = '';
     this.jugador = new Jugador('Jugador', [], 0, false, false, false);
     this.croupier = new Jugador('Croupier', [], 0, true, false, false);
   }
