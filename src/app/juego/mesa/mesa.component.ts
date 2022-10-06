@@ -59,11 +59,11 @@ export class MesaComponent implements OnInit {
   private chequearGanador(): void {
     if (!this.jugador.perdio && this.croupier.perdio) {
       //gano jugador porque se pasó el croupier
-      this.mensajeFinal = "Ganaste! Felicidades!";
+      this.mensajeFinal = "Ganaste! el croupier se pasó! Felicidades!";
 
     } else if (this.jugador.perdio && !this.croupier.perdio) {
       //gano croupier porque se pasó el jugador
-      this.mensajeFinal = "Perdiste! Mejor suerte la próxima!";
+      this.mensajeFinal = "Perdiste! Te pasaste! Mejor suerte la próxima!";
 
     } else if (!this.jugador.perdio && !this.croupier.perdio) {
       //ninguno se pasó
@@ -72,25 +72,26 @@ export class MesaComponent implements OnInit {
         //igual puntaje
         if (this.jugador.tieneBlackjack() && !this.croupier.tieneBlackjack()) {
           //gana jugador por blackjack
+          this.mensajeFinal = "Ganaste por tener blackjack."
         } else if (!this.jugador.tieneBlackjack() && this.croupier.tieneBlackjack()) {
           // gana croupier por blackjack
+          this.mensajeFinal = "Perdiste porque el croupier obtuvo blackjack."
         } else {
           //empate
-          this.mensajeFinal = "Empataron!";
+          this.mensajeFinal = "Empataron por igualdad de puntos.";
         }
       } else if (this.jugador.puntos > this.croupier.puntos) {
         //gana jugador por mayor puntaje
-        this.mensajeFinal = "Ganaste! Felicidades!";
+        this.mensajeFinal = "Ganaste por tener más puntos! Felicidades!";
       } else {
         //gana croupier por mayor puntaje
-        this.mensajeFinal = "Perdiste! Mejor suerte la próxima!";
+        this.mensajeFinal = "Perdiste por tener menos puntos! Mejor suerte la próxima!";
       }
 
     } else {
       // Empate ya que ambos se pasaron
-      this.mensajeFinal = "Empataron!";
+      this.mensajeFinal = "Empataron! Ambos perdieron!";
     }
-
     this.terminoJuego = true;
   }
 
