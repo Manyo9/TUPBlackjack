@@ -16,7 +16,11 @@ Se permite que el croupier juegue en caso de que el jugador se pase, para poder 
 Los autores de los commit no reflejan el trabajo hecho por los integrantes, pues el trabajo ha sido realizado en conjunto por medio de video llamada.  
 No se controlan cartas repetidas,pues eso ira en otra entrega como fue pactado con los profesores.
 
-## Development server
+## Front-End
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+`ng serve`
 
+## Back-End
+
+`npm install`
+`npm run serve`
