@@ -22,5 +22,7 @@ No se controlan cartas repetidas,pues eso ira en otra entrega como fue pactado c
 
 ## Back-End
 
+[Descargar el repo](https://github.com/Manyo9/TUPBlackjackBack)
+
 `npm install`
 `npm run serve`
