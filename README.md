@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Integrantes
 
-- Bazan Victor 112878
+- Bazan Victor 112878   .
 - Mangini Agustín 112659 
 - Moisés Franco 113191 
 - Montícoli Pablo Javier 113491
