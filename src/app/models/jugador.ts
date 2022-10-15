@@ -17,7 +17,7 @@ export class Jugador {
         this.perdio = perdio;
     }
 
-    tomarCarta(carta: Carta): void{
+    tomarCarta(carta: any): void{
         this.mano.push(carta);
         this.chequearCondicion();
         this.puntos = this.calcularPuntos();
