@@ -31,16 +31,35 @@ export class MesaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.cargarPartida();
-    this.reiniciar();
   }
   private cargarPartida(): void {
     this.subscription.add(
       this.partidaService.empezarPartida().subscribe({
         next: (r: ResultadoGenerico) => {
           if (r.ok) {
-            this.partida = r.resultado as Partida;
-            console.log(this.partida.jugador);
+            //Mapeo manual para que funcionen los metodos de jugador y croupier
+            this.partida.idPartida = r.resultado.idPartida;
+            this.partida.empezo = r.resultado.empezo;
+            this.partida.turnoCroupier = r.resultado.turnoCroupier;
+            this.partida.terminoJuego = r.resultado.terminoJuego;
+            this.partida.jugador = new Jugador(
+              r.resultado.jugador.nombre,
+              r.resultado.jugador.mano,
+              r.resultado.jugador.puntos,
+              r.resultado.jugador.esCroupier,
+              r.resultado.jugador.terminoJugada,
+              r.resultado.jugador.perdio
+            );
+            this.partida.croupier = new Jugador(
+              r.resultado.croupier.nombre,
+              r.resultado.croupier.mano,
+              r.resultado.croupier.puntos,
+              r.resultado.croupier.esCroupier,
+              r.resultado.croupier.terminoJugada,
+              r.resultado.croupier.perdio
+            )
+            console.log(this.partida);
+            this.repartir();
           }
           else {
             console.error(r.mensaje);
@@ -52,40 +71,39 @@ export class MesaComponent implements OnInit, OnDestroy {
       })
     )
   }
-  private obtenerCarta(): any {
 
-    this.subscription.add(
-      this.cartaService.obtenerCarta(this.partida.idPartida).subscribe({
-        next: (r: ResultadoGenerico) => {
-          if (r.ok) {
-            return r.resultado[0];
-          } else {
-            console.error(r.mensaje);
-            return undefined;
-          }
-        },
-        error: (e) => {
-          console.error(e);
-          return undefined;
-        }
-      })
-    )
-    return undefined;
-  }
 
   private obtenerCartaDadaVuelta(): Carta {
     return this.cartaService.obtenerDadaVuelta();
   }
-
-  async repartir() {
-    this.partida.jugador.tomarCarta(this.pedirCarta());
-    this.partida.jugador.tomarCarta(this.pedirCarta());
-    // this.partida.croupier.tomarCarta(this.obtenerCartaDadaVuelta()); 
+  empezar() {
+    this.cargarPartida();
+  }
+  repartir() {
+    
+    this.pedirCarta();
+    this.pedirCarta();
+    this.partida.croupier.tomarCarta(this.obtenerCartaDadaVuelta()); 
     // this.partida.croupier.tomarCarta(this.obtenerCarta()); // debe implementar un metodo distinto al del jugador
   }
 
   pedirCarta(): void {
-    this.partida.jugador.tomarCarta(this.obtenerCarta());
+    this.subscription.add(
+      this.cartaService.obtenerCarta(this.partida.idPartida).subscribe({
+        next: (r: ResultadoGenerico) => {
+          if (r.ok) {
+            const c: Carta = r.resultado as Carta;
+            console.log(c)
+            this.partida.jugador.tomarCarta(c);
+          } else {
+            console.error(r.mensaje);
+          }
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      })
+    )
   }
 
   terminarJugada(): void {
@@ -144,9 +162,11 @@ export class MesaComponent implements OnInit, OnDestroy {
     this.partida.turnoCroupier = true;
     this.partida.croupier.quitarBocaAbajo();
 
-    while (!this.partida.croupier.terminoJugada) {
-      this.partida.croupier.tomarCarta(this.obtenerCarta());
-    }
+    // Debe utilizar un metodo nuevo que consuma una endpoint diferente
+    // while (!this.partida.croupier.terminoJugada) {
+    //   
+    //   this.partida.croupier.tomarCarta(this.obtenerCarta()); 
+    // }
 
     this.chequearGanador();
   }
