@@ -6,7 +6,7 @@ import { ResultadoGenerico } from '../models/resultado-generico';
 
 @Injectable()
 export class CartaService {
-  API_URL: string = 'localhost:3000/api/partidas/';
+  API_URL: string = 'http://localhost:3000/api/partidas/';
   constructor(
     private http: HttpClient
   ) { }
