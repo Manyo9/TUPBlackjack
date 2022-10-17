@@ -19,7 +19,7 @@ export class MesaComponent implements OnInit, OnDestroy {
   // croupier: Jugador;
   // empezo: boolean = false;
   // turnoCroupier: boolean = false;
-  // terminoJuego: boolean = false;
+  terminoJuego: boolean = false;
   mensajeFinal: string;
   subscription: Subscription;
   constructor(private cartaService: CartaService, private partidaService: PartidaService) {
@@ -41,7 +41,6 @@ export class MesaComponent implements OnInit, OnDestroy {
             this.partida.idPartida = r.resultado.idPartida;
             this.partida.empezo = r.resultado.empezo;
             this.partida.turnoCroupier = r.resultado.turnoCroupier;
-            this.partida.terminoJuego = r.resultado.terminoJuego;
             this.partida.jugador = new Jugador(
               r.resultado.jugador.nombre,
               r.resultado.jugador.mano,
@@ -145,7 +144,7 @@ export class MesaComponent implements OnInit, OnDestroy {
   reiniciar(): void {
     this.partida.empezo = false;
     this.partida.turnoCroupier = false;
-    this.partida.terminoJuego = false;
+    this.terminoJuego = false;
     this.mensajeFinal = '';
     this.partida.jugador = new Jugador('Jugador', [], 0, false, false, false);
     this.partida.croupier = new Jugador('Croupier', [], 0, true, false, false);
@@ -163,14 +162,14 @@ export class MesaComponent implements OnInit, OnDestroy {
     } else if (!this.partida.jugador.perdio && !this.partida.croupier.perdio) {
       //ninguno se pasó
       // chequeo de blackjack
-      if (this.partida.jugador.puntos === this.partida.croupier.puntos) {
+      if (this.partida.jugador.puntos == this.partida.croupier.puntos) {
         //igual puntaje
         if (this.partida.jugador.tieneBlackjack() && !this.partida.croupier.tieneBlackjack()) {
           //gana jugador por blackjack
           this.mensajeFinal = "Ganaste por tener blackjack."
         } else if (!this.partida.jugador.tieneBlackjack() && this.partida.croupier.tieneBlackjack()) {
           // gana croupier por blackjack
-          this.mensajeFinal = "Perdiste porque el croupier obtuvo blackjack."
+          this.mensajeFinal = "Perdiste porque el croupier obtuvo blackjack.";
         } else {
           //empate
           this.mensajeFinal = "Empataron por igualdad de puntos.";
@@ -187,7 +186,7 @@ export class MesaComponent implements OnInit, OnDestroy {
       // Empate ya que ambos se pasaron
       this.mensajeFinal = "Empataron! Ambos perdieron!";
     }
-    this.partida.terminoJuego = true;
+    this.terminoJuego = true;
   }
 
   private jugarCroupier(): void {
@@ -199,11 +198,13 @@ export class MesaComponent implements OnInit, OnDestroy {
             this.partida.croupier.mano = r.resultado.mano;
             this.partida.croupier.puntos = r.resultado.puntos;
             this.partida.croupier.perdio = r.resultado.perdio;
+            this.partida.croupier.terminoJugada = true;
+            this.chequearGanador();
           }
         }
       })
     )
-    this.chequearGanador();
+
   }
 
   continuar(): void {
