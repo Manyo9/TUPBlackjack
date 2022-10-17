@@ -5,7 +5,7 @@ export class Partida {
     idPartida: number;
     jugador: Jugador;
     croupier: Jugador;
-    empezo: boolean;
+    activo: boolean;
     turnoCroupier: boolean;
     constructor(){
         this.jugador = new Jugador();
