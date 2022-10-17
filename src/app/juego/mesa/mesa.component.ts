@@ -77,15 +77,14 @@ export class MesaComponent implements OnInit, OnDestroy {
     return this.cartaService.obtenerDadaVuelta();
   }
   
-  empezar() {
+  empezar(): void {
     this.cargarPartida();
   }
-  repartir() {
-    
+  repartir(): void {
     this.pedirCarta();
     this.pedirCarta();
     this.partida.croupier.tomarCarta(this.obtenerCartaDadaVuelta()); 
-    // this.partida.croupier.tomarCarta(this.obtenerCarta()); // debe implementar un metodo distinto al del jugador
+    this.pedirCartaCroupier();
   }
 
   pedirCarta(): void {
@@ -106,7 +105,24 @@ export class MesaComponent implements OnInit, OnDestroy {
       })
     )
   }
-
+  pedirCartaCroupier(): void {
+    this.subscription.add(
+      this.cartaService.primeraCartaCroupier(this.partida.idPartida).subscribe({
+        next: (r: ResultadoGenerico) => {
+          if (r.ok) {
+            const c: Carta = r.resultado as Carta;
+            console.log('Se obtuvo la primera carta del croupier desde la api');
+            this.partida.croupier.tomarCarta(c);
+          } else {
+            console.error(r.mensaje);
+          }
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      })
+    )
+  }
   terminarJugada(): void {
     this.partida.jugador.terminoJugada = true;
     this.subscription.add(
@@ -174,16 +190,19 @@ export class MesaComponent implements OnInit, OnDestroy {
     this.partida.terminoJuego = true;
   }
 
-  private jugarCroupier() {
+  private jugarCroupier(): void {
     this.partida.turnoCroupier = true;
-    this.partida.croupier.quitarBocaAbajo();
-
-    // Debe utilizar un metodo nuevo que consuma una endpoint diferente
-    // while (!this.partida.croupier.terminoJugada) {
-    //   
-    //   this.partida.croupier.tomarCarta(this.obtenerCarta()); 
-    // }
-
+    this.subscription.add(
+      this.cartaService.jugadaCroupier(this.partida.idPartida).subscribe({
+        next: (r: ResultadoGenerico) => {
+          if(r.ok){
+            this.partida.croupier.mano = r.resultado.mano;
+            this.partida.croupier.puntos = r.resultado.puntos;
+            this.partida.croupier.perdio = r.resultado.perdio;
+          }
+        }
+      })
+    )
     this.chequearGanador();
   }
 

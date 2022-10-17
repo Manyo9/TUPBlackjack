@@ -59,4 +59,10 @@ export class CartaService {
     }
     return carta;
   }
+  jugadaCroupier(id: number): Observable<ResultadoGenerico> {
+    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/jugadaCroupier`);
+  }
+  primeraCartaCroupier(id: number): Observable<ResultadoGenerico> {
+    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/primeraCartaCroupier`);
+  }
 }
