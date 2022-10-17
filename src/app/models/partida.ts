@@ -7,7 +7,6 @@ export class Partida {
     croupier: Jugador;
     empezo: boolean;
     turnoCroupier: boolean;
-    terminoJuego: boolean;
     constructor(){
         this.jugador = new Jugador();
         this.croupier = new Jugador();
