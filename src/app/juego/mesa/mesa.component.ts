@@ -58,7 +58,7 @@ export class MesaComponent implements OnInit, OnDestroy {
               r.resultado.croupier.terminoJugada,
               r.resultado.croupier.perdio
             )
-            console.log(this.partida);
+            console.log(r.mensaje);
             this.repartir();
           }
           else {
@@ -76,6 +76,7 @@ export class MesaComponent implements OnInit, OnDestroy {
   private obtenerCartaDadaVuelta(): Carta {
     return this.cartaService.obtenerDadaVuelta();
   }
+  
   empezar() {
     this.cargarPartida();
   }
@@ -93,7 +94,7 @@ export class MesaComponent implements OnInit, OnDestroy {
         next: (r: ResultadoGenerico) => {
           if (r.ok) {
             const c: Carta = r.resultado as Carta;
-            console.log(c)
+            console.log('Se obtuvo una carta desde la api');
             this.partida.jugador.tomarCarta(c);
           } else {
             console.error(r.mensaje);
@@ -108,6 +109,21 @@ export class MesaComponent implements OnInit, OnDestroy {
 
   terminarJugada(): void {
     this.partida.jugador.terminoJugada = true;
+    this.subscription.add(
+      this.partidaService.plantarse(this.partida.idPartida).subscribe({
+        next: (r: ResultadoGenerico)=>{
+          if(!r.ok){
+            console.error(r.mensaje);
+          } else {
+            console.log(r.mensaje);
+          }
+        },
+        error: (e) => {
+          console.error(e);
+        }
+
+      })
+    )
   }
 
   reiniciar(): void {

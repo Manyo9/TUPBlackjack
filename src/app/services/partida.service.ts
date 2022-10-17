@@ -18,10 +18,13 @@ export class PartidaService {
         'Authorization': `Bearer ${auth_token}`
 
       });
-
- 
-
     const requestOptions = { headers: headers };
+
+
     return this.http.post<ResultadoGenerico>(this.API_URL + "nueva", null, requestOptions);
   }
+  plantarse(id: number): Observable<ResultadoGenerico> {
+    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/plantarse`,null);
+  }
+
 }
