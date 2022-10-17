@@ -17,7 +17,7 @@ export class MesaComponent implements OnInit, OnDestroy {
   partida: Partida;
   // jugador: Jugador;
   // croupier: Jugador;
-  // empezo: boolean = false;
+  empezo: boolean = false;
   // turnoCroupier: boolean = false;
   terminoJuego: boolean = false;
   mensajeFinal: string;
@@ -39,7 +39,7 @@ export class MesaComponent implements OnInit, OnDestroy {
           if (r.ok) {
             //Mapeo manual para que funcionen los metodos de jugador y croupier
             this.partida.idPartida = r.resultado.idPartida;
-            this.partida.empezo = r.resultado.empezo;
+            this.partida.activo = r.resultado.activo;
             this.partida.turnoCroupier = r.resultado.turnoCroupier;
             this.partida.jugador = new Jugador(
               r.resultado.jugador.nombre,
@@ -57,6 +57,7 @@ export class MesaComponent implements OnInit, OnDestroy {
               r.resultado.croupier.terminoJugada,
               r.resultado.croupier.perdio
             )
+            this.empezo = true;
             console.log(r.mensaje);
             this.repartir();
           }
@@ -142,12 +143,49 @@ export class MesaComponent implements OnInit, OnDestroy {
   }
 
   reiniciar(): void {
-    this.partida.empezo = false;
-    this.partida.turnoCroupier = false;
+    // this.partida.empezo = false;
+    // this.partida.turnoCroupier = false;
     this.terminoJuego = false;
-    this.mensajeFinal = '';
-    this.partida.jugador = new Jugador('Jugador', [], 0, false, false, false);
-    this.partida.croupier = new Jugador('Croupier', [], 0, true, false, false);
+    // this.mensajeFinal = '';
+    // this.partida.jugador = new Jugador('Jugador', [], 0, false, false, false);
+    // this.partida.croupier = new Jugador('Croupier', [], 0, true, false, false);
+    this.subscription.add(
+      this.partidaService.nuevaRonda(this.partida.idPartida).subscribe({
+        next: (r: ResultadoGenerico) => {
+          if (r.ok) {
+            //Mapeo manual para que funcionen los metodos de jugador y croupier
+            this.partida.idPartida = r.resultado.idPartida;
+            this.partida.activo = r.resultado.activo;
+            this.partida.turnoCroupier = r.resultado.turnoCroupier;
+            this.partida.jugador = new Jugador(
+              r.resultado.jugador.nombre,
+              r.resultado.jugador.mano,
+              r.resultado.jugador.puntos,
+              r.resultado.jugador.esCroupier,
+              r.resultado.jugador.terminoJugada,
+              r.resultado.jugador.perdio
+            );
+            this.partida.croupier = new Jugador(
+              r.resultado.croupier.nombre,
+              r.resultado.croupier.mano,
+              r.resultado.croupier.puntos,
+              r.resultado.croupier.esCroupier,
+              r.resultado.croupier.terminoJugada,
+              r.resultado.croupier.perdio
+            )
+            this.empezo = true;
+            console.log(r.mensaje);
+            this.repartir();
+          }
+          else {
+            console.error(r.mensaje);
+          }
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      })
+    )
   }
 
   private chequearGanador(): void {

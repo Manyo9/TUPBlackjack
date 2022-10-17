@@ -26,5 +26,7 @@ export class PartidaService {
   plantarse(id: number): Observable<ResultadoGenerico> {
     return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/plantarse`,null);
   }
-
+  nuevaRonda(id: number): Observable<ResultadoGenerico> {
+    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/nuevaRonda`,null);
+  }
 }
