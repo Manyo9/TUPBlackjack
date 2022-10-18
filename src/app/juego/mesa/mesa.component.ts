@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Carta } from 'src/app/models/carta';
 import { Jugador } from 'src/app/models/jugador';
@@ -22,7 +23,11 @@ export class MesaComponent implements OnInit, OnDestroy {
   terminoJuego: boolean = false;
   mensajeFinal: string;
   subscription: Subscription;
-  constructor(private cartaService: CartaService, private partidaService: PartidaService) {
+  constructor(
+    private cartaService: CartaService, 
+    private partidaService: PartidaService,
+    private router: Router
+    ) {
     this.partida = new Partida();
     this.subscription = new Subscription();
   }
@@ -62,10 +67,14 @@ export class MesaComponent implements OnInit, OnDestroy {
             this.repartir();
           }
           else {
+            alert("Debe iniciar sesión para empezar una partida");
+            this.router.navigate(['iniciar-sesion']);
             console.error(r.mensaje);
           }
         },
         error: (e) => {
+          alert("Debe iniciar sesión para empezar una partida");
+          this.router.navigate(['iniciar-sesion']);
           console.error(e);
         }
       })
