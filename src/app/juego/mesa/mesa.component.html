@@ -10,13 +10,25 @@
   </div>
   <h1 class="display-6 text-center" *ngIf="empezo">Jugada del croupier. Puntaje: <strong>{{ partida.croupier.puntos }}</strong></h1>
   <div class="container" class="d-flex justify-content-center">
-    <app-carta [carta]="carta" *ngFor="let carta of partida.croupier.mano"></app-carta>
+    <div class="row">
+      <div *ngFor="let carta of partida.croupier.mano" style="max-width: 141px;">
+        <div class="col">
+          <app-carta [carta]="carta" ></app-carta>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="py-5">
     <h1 class="display-6 text-center" *ngIf="empezo">Tu jugada. Puntaje: <strong>{{ partida.jugador.puntos }}</strong></h1>
     <div class="container" class="d-flex justify-content-center">
-      <app-carta [carta]="jarta" *ngFor="let jarta of partida.jugador.mano"></app-carta>
+      <div class="row">
+        <div *ngFor="let jarta of partida.jugador.mano" style="max-width: 141px;">
+          <div class="col">
+            <app-carta [carta]="jarta" ></app-carta>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="d-flex justify-content-center">
