@@ -189,41 +189,33 @@ export class MesaComponent implements OnInit, OnDestroy {
   }
 
   private chequearGanador(): void {
-    if (!this.partida.jugador.perdio && this.partida.croupier.perdio) {
-      //gano jugador porque se pasó el croupier
-      this.mensajeFinal = "Ganaste! el croupier se pasó! Felicidades!";
-
-    } else if (this.partida.jugador.perdio && !this.partida.croupier.perdio) {
-      //gano croupier porque se pasó el jugador
-      this.mensajeFinal = "Perdiste! Te pasaste! Mejor suerte la próxima!";
-
-    } else if (!this.partida.jugador.perdio && !this.partida.croupier.perdio) {
-      //ninguno se pasó
-      // chequeo de blackjack
-      if (this.partida.jugador.puntos == this.partida.croupier.puntos) {
-        //igual puntaje
-        if (this.partida.jugador.tieneBlackjack() && !this.partida.croupier.tieneBlackjack()) {
-          //gana jugador por blackjack
-          this.mensajeFinal = "Ganaste por tener blackjack."
-        } else if (!this.partida.jugador.tieneBlackjack() && this.partida.croupier.tieneBlackjack()) {
-          // gana croupier por blackjack
-          this.mensajeFinal = "Perdiste porque el croupier obtuvo blackjack.";
-        } else {
-          //empate
-          this.mensajeFinal = "Empataron por igualdad de puntos.";
+    this.subscription.add(
+      this.partidaService.obtenerGanador(this.partida.idPartida).subscribe({
+        next: (r: ResultadoGenerico) => {
+          if(!r.ok){
+            console.error(r.mensaje);
+          } else {
+            console.log(r.mensaje);
+            let res: string = '';
+            switch (r.resultado.idGanador) {
+              case 0:
+                res = 'Perdiste' 
+                break;
+              case -1:
+                res = 'Empataron' 
+                break; 
+              default:
+                res = 'Ganaste' 
+                break;
+            }
+            this.mensajeFinal = `${res}, razón: ${r.resultado.razon}`
+          }
+        },
+        error: (e) => {
+          console.error(e);
         }
-      } else if (this.partida.jugador.puntos > this.partida.croupier.puntos) {
-        //gana jugador por mayor puntaje
-        this.mensajeFinal = "Ganaste por tener más puntos! Felicidades!";
-      } else {
-        //gana croupier por mayor puntaje
-        this.mensajeFinal = "Perdiste por tener menos puntos! Mejor suerte la próxima!";
-      }
-
-    } else {
-      // Empate ya que ambos se pasaron
-      this.mensajeFinal = "Empataron! Ambos perdieron!";
-    }
+      })
+    )
     this.terminoJuego = true;
   }
 
