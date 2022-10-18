@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Carta } from '../models/carta';
@@ -11,44 +11,20 @@ export class CartaService {
     private http: HttpClient
   ) { }
 
-  // obtenerCartaAleatoria(): Carta {
-  //   let cartaRandom: Carta;
-  //   let palo = Math.floor(Math.random() * (4) + 1);
-  //   let stringValor: string;
-  //   let puntosCarta: number;
-  //   let numValor = Math.floor(Math.random() * (13) + 1);
-  //   switch (numValor) {
-  //     case 11:
-  //       stringValor = 'J';
-  //       puntosCarta = 10;
-  //       break;
-  //     case 12:
-  //       stringValor = 'Q';
-  //       puntosCarta = 10;
-  //       break;
-  //     case 13:
-  //       stringValor = 'K';
-  //       puntosCarta = 10;
-  //       break;
-  //     case 1:
-  //       stringValor = 'A';
-  //       puntosCarta = 11;
-  //       break;
-
-  //     default:
-  //       stringValor = numValor.toString();
-  //       puntosCarta = numValor;
-  //       break;
-  //   }
-  //   cartaRandom = {
-  //     palo: palo,
-  //     valorCarta: stringValor,
-  //     valorNumerico: puntosCarta
-  //   }
-  //   return cartaRandom
-  // }
   obtenerCarta(id: number): Observable<ResultadoGenerico> {
-    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/pedirCarta`);
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/pedirCarta`,requestOptions);
   }
   obtenerDadaVuelta(): Carta {
     let carta: Carta;
@@ -60,9 +36,32 @@ export class CartaService {
     return carta;
   }
   jugadaCroupier(id: number): Observable<ResultadoGenerico> {
-    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/jugadaCroupier`);
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.get<ResultadoGenerico>(`${this.API_URL}${id}/jugadaCroupier`,requestOptions);
   }
   primeraCartaCroupier(id: number): Observable<ResultadoGenerico> {
-    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/primeraCartaCroupier`);
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/primeraCartaCroupier`,requestOptions);
   }
 }

@@ -24,15 +24,63 @@ export class PartidaService {
     return this.http.post<ResultadoGenerico>(this.API_URL + "nueva", null, requestOptions);
   }
   plantarse(id: number): Observable<ResultadoGenerico> {
-    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/plantarse`,null);
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/plantarse`,null,requestOptions);
   }
   nuevaRonda(id: number): Observable<ResultadoGenerico> {
-    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/nuevaRonda`,null);
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/nuevaRonda`,null,requestOptions);
   }
   terminarPartida(id: number): Observable<ResultadoGenerico> {
-    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/terminarPartida`,null);
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/terminarPartida`,null,requestOptions);
   }
   obtenerGanador(id: number): Observable<ResultadoGenerico> {
-    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/obtenerGanador`);
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/obtenerGanador`,requestOptions);
   }
 }
