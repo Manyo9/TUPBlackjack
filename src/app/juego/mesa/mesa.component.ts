@@ -196,7 +196,27 @@ export class MesaComponent implements OnInit, OnDestroy {
       })
     )
   }
-
+  terminar(): void {
+    this.subscription.add(
+      this.partidaService.terminarPartida(this.partida.idPartida).subscribe({
+        next: (r: ResultadoGenerico) => {
+          if(r.ok){
+            this.partida = new Partida();
+            this.empezo = false;
+            this.terminoJuego = false;
+            this.mensajeFinal = '';
+            console.log(r.mensaje);
+          }
+          else{
+            console.error(r.mensaje);
+          }
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      })
+    )
+  }
   private chequearGanador(): void {
     this.subscription.add(
       this.partidaService.obtenerGanador(this.partida.idPartida).subscribe({

@@ -29,6 +29,9 @@ export class PartidaService {
   nuevaRonda(id: number): Observable<ResultadoGenerico> {
     return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/nuevaRonda`,null);
   }
+  terminarPartida(id: number): Observable<ResultadoGenerico> {
+    return this.http.post<ResultadoGenerico>( `${this.API_URL}${id}/terminarPartida`,null);
+  }
   obtenerGanador(id: number): Observable<ResultadoGenerico> {
     return this.http.get<ResultadoGenerico>( `${this.API_URL}${id}/obtenerGanador`);
   }
