@@ -36,8 +36,56 @@ export class MesaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
   }
   private cargarPartida(): void {
+    this.subscription.add(
+      this.partidaService.obtenerPartidaActiva().subscribe({
+        next: (r: ResultadoGenerico) => {
+          if (r.ok) {
+            //Mapeo manual para que funcionen los metodos de jugador y croupier
+            this.partida.idPartida = r.resultado.idPartida;
+            this.partida.activo = r.resultado.activo;
+            this.partida.turnoCroupier = r.resultado.turnoCroupier;
+            this.partida.jugador = new Jugador(
+              r.resultado.jugador.nombre,
+              r.resultado.jugador.mano,
+              r.resultado.jugador.puntos,
+              r.resultado.jugador.esCroupier,
+              r.resultado.jugador.terminoJugada,
+              r.resultado.jugador.perdio
+            );
+            this.partida.croupier = new Jugador(
+              r.resultado.croupier.nombre,
+              r.resultado.croupier.mano,
+              r.resultado.croupier.puntos,
+              r.resultado.croupier.esCroupier,
+              r.resultado.croupier.terminoJugada,
+              r.resultado.croupier.perdio
+            )
+            this.empezo = true;
+            console.log(r.mensaje);
+            this.repartir();
+          }
+          else {
+            console.error(r.mensaje);
+            this.cargarNuevaPartida();
+          }
+        },
+        error: (e) => {
+          if(e.status == 401) {
+            alert("Debe iniciar sesión para empezar una partida");
+            this.router.navigate(['iniciar-sesion']);
+          }
+          else {
+            console.error(e);
+            this.cargarNuevaPartida();
+          }
+        }
+      })
+    )
+  }
+  private cargarNuevaPartida(): void {
     this.subscription.add(
       this.partidaService.empezarPartida().subscribe({
         next: (r: ResultadoGenerico) => {
@@ -67,13 +115,13 @@ export class MesaComponent implements OnInit, OnDestroy {
             this.repartir();
           }
           else {
-            alert("Debe iniciar sesión para empezar una partida");
+            alert(r.mensaje);
             this.router.navigate(['iniciar-sesion']);
             console.error(r.mensaje);
           }
         },
         error: (e) => {
-          alert("Debe iniciar sesión para empezar una partida");
+          alert(e);
           this.router.navigate(['iniciar-sesion']);
           console.error(e);
         }

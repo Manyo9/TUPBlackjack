@@ -23,6 +23,21 @@ export class PartidaService {
 
     return this.http.post<ResultadoGenerico>(this.API_URL + "nueva", null, requestOptions);
   }
+  obtenerPartidaActiva(): Observable<ResultadoGenerico> {
+
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.get<ResultadoGenerico>(this.API_URL + "partidaActiva", requestOptions);
+  }
   plantarse(id: number): Observable<ResultadoGenerico> {
     
     let auth_token = localStorage.getItem('token');

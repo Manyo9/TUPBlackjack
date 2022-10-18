@@ -45,7 +45,7 @@ export class IniciarSesionComponent implements OnInit {
         this.usuService.login(usuLogin).subscribe({
           next: (res: ResultadoGenerico) => {
             if (res.ok && res.resultado != null) {
-              localStorage.setItem('token',res.resultado[0]);
+              localStorage.setItem('token',res.resultado);
               alert('Bienvenido/a!');
               this.router.navigate(['jugar']);
             } else {
