@@ -16,11 +16,7 @@ import { PartidaService } from 'src/app/services/partida.service';
 
 export class MesaComponent implements OnInit, OnDestroy {
   partida: Partida;
-  // jugador: Jugador;
-  // croupier: Jugador;
   empezo: boolean = false;
-  // turnoCroupier: boolean = false;
-  terminoJuego: boolean = false;
   mensajeFinal: string;
   subscription: Subscription;
   constructor(
@@ -38,7 +34,7 @@ export class MesaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
   }
-  private cargarPartida(): void {
+  private cargarPartidaExistente(): void {
     this.subscription.add(
       this.partidaService.obtenerPartidaActiva().subscribe({
         next: (r: ResultadoGenerico) => {
@@ -64,8 +60,12 @@ export class MesaComponent implements OnInit, OnDestroy {
               r.resultado.croupier.perdio
             )
             this.empezo = true;
+            if(!this.partida.turnoCroupier) {
+              this.partida.croupier.mano.unshift(this.obtenerCartaDadaVuelta());
+            } else if(this.partida.croupier.terminoJugada) {
+              this.chequearGanador();
+            }
             console.log(r.mensaje);
-            this.repartir();
           }
           else {
             console.error(r.mensaje);
@@ -135,7 +135,7 @@ export class MesaComponent implements OnInit, OnDestroy {
   }
   
   empezar(): void {
-    this.cargarPartida();
+    this.cargarPartidaExistente();
   }
   repartir(): void {
     this.pedirCarta();
@@ -202,7 +202,6 @@ export class MesaComponent implements OnInit, OnDestroy {
   reiniciar(): void {
     // this.partida.empezo = false;
     // this.partida.turnoCroupier = false;
-    this.terminoJuego = false;
     // this.mensajeFinal = '';
     // this.partida.jugador = new Jugador('Jugador', [], 0, false, false, false);
     // this.partida.croupier = new Jugador('Croupier', [], 0, true, false, false);
@@ -251,7 +250,6 @@ export class MesaComponent implements OnInit, OnDestroy {
           if(r.ok){
             this.partida = new Partida();
             this.empezo = false;
-            this.terminoJuego = false;
             this.mensajeFinal = '';
             console.log(r.mensaje);
           }
@@ -293,7 +291,6 @@ export class MesaComponent implements OnInit, OnDestroy {
         }
       })
     )
-    this.terminoJuego = true;
   }
 
   private jugarCroupier(): void {

@@ -1,5 +1,5 @@
 <app-header titulo="BlackJack" colorFondo="dark"></app-header>
-<div *ngIf="terminoJuego" class="alert alert-success text-center alert-dismissible fade show m-0" role="alert">
+<div *ngIf="partida.croupier.terminoJugada" class="alert alert-success text-center alert-dismissible fade show m-0" role="alert">
   {{mensajeFinal}}
 </div>
 <div class="container-fluid mesa p-5 text-light">
@@ -47,9 +47,9 @@
   <div class="row">
     <div class="d-flex justify-content-center mt-3">
       <button class="btn btn-outline-primary mx-3 text-white" (click)="reiniciar()" *ngIf="empezo"
-        [disabled]="!terminoJuego">Jugar de nuevo</button>
+        [disabled]="!partida.croupier.terminoJugada">Jugar de nuevo</button>
       <button class="btn btn-outline-secondary mx-3 text-white" (click)="terminar()" *ngIf="empezo"
-        [disabled]="!terminoJuego">Terminar Partida</button>
+        [disabled]="!partida.croupier.terminoJugada">Terminar Partida</button>
     </div>
   </div>
   
