@@ -200,11 +200,6 @@ export class MesaComponent implements OnInit, OnDestroy {
   }
 
   reiniciar(): void {
-    // this.partida.empezo = false;
-    // this.partida.turnoCroupier = false;
-    // this.mensajeFinal = '';
-    // this.partida.jugador = new Jugador('Jugador', [], 0, false, false, false);
-    // this.partida.croupier = new Jugador('Croupier', [], 0, true, false, false);
     this.subscription.add(
       this.partidaService.nuevaRonda(this.partida.idPartida).subscribe({
         next: (r: ResultadoGenerico) => {
