@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResultadoGenerico } from '../models/resultado-generico';
 import { Usuario } from '../models/usuario';
+import { SesionIniciadaService } from '../services/sesion-iniciada.service';
 import { UsuarioService } from '../services/usuario.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class IniciarSesionComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private usuService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private sesionService: SesionIniciadaService
   ) {
     this.formulario = this.formBuilder.group(
       {
@@ -47,6 +49,8 @@ export class IniciarSesionComponent implements OnInit {
             if (res.ok && res.resultado != null) {
               localStorage.setItem('token',res.resultado);
               alert('Bienvenido/a!');
+              this.sesionService.cambiarEstado(true);
+
               this.router.navigate(['jugar']);
             } else {
               alert(`Error: ${res.mensaje}`)

@@ -15,6 +15,9 @@ import { IniciarSesionComponent } from './iniciar-sesion/iniciar-sesion.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsuarioService } from './services/usuario.service';
 import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { IniciarSesionButtonComponent } from './iniciar-sesion-button/iniciar-sesion-button.component';
+import { SesionIniciadaService } from './services/sesion-iniciada.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
     InicioComponent,
     NoEncontradoComponent,
     IniciarSesionComponent,
-    CerrarSesionComponent
+    CerrarSesionComponent,
+    NavbarComponent,
+    IniciarSesionButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
   providers: [
     CartaService,
     PartidaService,
-    UsuarioService
+    UsuarioService,
+    SesionIniciadaService
   ],
   bootstrap: [AppComponent]
 })
