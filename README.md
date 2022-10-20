@@ -20,6 +20,11 @@ No se controlan cartas repetidas,pues eso ira en otra entrega como fue pactado c
 
 `ng serve`
 
+## Usuario para jugar
+
+usuario: jugadorprueba
+contrasenia: lionelmessi
+
 ## Back-End
 
 [Descargar el repo](https://github.com/Manyo9/TUPBlackjackBack)
