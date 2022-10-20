@@ -14,6 +14,7 @@ import { PartidaService } from './services/partida.service';
 import { IniciarSesionComponent } from './iniciar-sesion/iniciar-sesion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsuarioService } from './services/usuario.service';
+import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UsuarioService } from './services/usuario.service';
     HeaderComponent,
     InicioComponent,
     NoEncontradoComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    CerrarSesionComponent
   ],
   imports: [
     BrowserModule,

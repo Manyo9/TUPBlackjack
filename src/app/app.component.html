@@ -14,6 +14,7 @@
           </li>
         </ul>
         <button class="btn btn-dark border border-secondary ms-3" routerLink="iniciar-sesion" type="button">Iniciar Sesión</button>
+        <app-cerrar-sesion (onCerrarSesion)="cerrarSesion()" *ngIf="sesionIniciada"></app-cerrar-sesion>
       </div>
     </div>
   </nav>
