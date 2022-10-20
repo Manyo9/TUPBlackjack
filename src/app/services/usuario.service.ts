@@ -12,7 +12,7 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  login(usuario: Usuario): Observable<ResultadoGenerico> {
+  inicioSesion(usuario: Usuario): Observable<ResultadoGenerico> {
     return this.http.post<ResultadoGenerico>(`${this.apiUrl}/iniciarSesion`,usuario);
   }
 

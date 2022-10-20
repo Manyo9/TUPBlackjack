@@ -42,7 +42,7 @@ export class IniciarSesionComponent implements OnInit {
       let usuLogin = new Usuario();
       usuLogin = this.formulario.value as Usuario;
       this.subscription.add(
-        this.usuService.login(usuLogin).subscribe({
+        this.usuService.inicioSesion(usuLogin).subscribe({
           next: (res: ResultadoGenerico) => {
             if (res.ok && res.resultado != null) {
               localStorage.setItem('token',res.resultado);
