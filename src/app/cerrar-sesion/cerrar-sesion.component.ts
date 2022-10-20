@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { SesionIniciadaService } from '../services/sesion-iniciada.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { SesionIniciadaService } from '../services/sesion-iniciada.service';
   styleUrls: ['./cerrar-sesion.component.css']
 })
 export class CerrarSesionComponent implements OnInit {
-  constructor(private sesionService: SesionIniciadaService) { }
+  constructor(private sesionService: SesionIniciadaService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -15,6 +16,7 @@ export class CerrarSesionComponent implements OnInit {
     if (confirm("¿Seguro desea cerrar la sesión?")){
       localStorage.removeItem('token');
       this.sesionService.cambiarEstado(false);
+      this.router.navigate(['inicio']);
     }
 
   }
