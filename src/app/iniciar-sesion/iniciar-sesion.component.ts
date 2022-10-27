@@ -56,7 +56,11 @@ export class IniciarSesionComponent implements OnInit {
               alert(`Error: ${res.mensaje}`)
             }
           },
-          error: (e: any) => { alert(`Error al iniciar sesión: ${e}`) }
+          error: (e: any) => { 
+            alert(`Error al iniciar sesión: ${e.message}`);
+            console.log(e);
+           }
+
         })
       );
     }
