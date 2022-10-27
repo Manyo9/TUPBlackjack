@@ -22,9 +22,15 @@ No se controlan cartas repetidas,pues eso ira en otra entrega como fue pactado c
 
 ## Usuario para jugar
 
-usuario: jugadorprueba
-contrasenia: lionelmessi
+usuario: jugadorprueba  
+contraseña: lionelmessi
+
+usuario: otrojugador  
+contraseña: prueba123
+
+El admin es solo para testear la API.
 
 ## Back-End
 
+(Leer el readme)
 [Descargar el repo](https://github.com/Manyo9/TUPBlackjackBack)
