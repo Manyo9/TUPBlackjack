@@ -51,9 +51,9 @@ export class CartaComponent implements OnInit {
       }
 
       if (paloString==='') {
-        this.rutaImagen = '../assets/cartas/flipped.png';
+        this.rutaImagen = 'https://raw.githubusercontent.com/Abraguas/blackjack-cartas/main/flipped.png';
       } else {
-        this.rutaImagen = '../assets/cartas/'+valorString+'_of_'+paloString+'.png';
+        this.rutaImagen = 'https://raw.githubusercontent.com/Abraguas/blackjack-cartas/main/'+valorString+'_of_'+paloString+'.png';
       }
     }
     //'../assets/cartas/'+valorString+'_of_'+paloString+'.png'
