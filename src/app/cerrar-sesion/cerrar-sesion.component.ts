@@ -1,6 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { SesionIniciadaService } from '../services/sesion-iniciada.service';
+import { SweetAlert } from 'sweetalert/typings/core';
+const swal: SweetAlert = require('sweetalert');
+
 
 @Component({
   selector: 'app-cerrar-sesion',
@@ -13,11 +16,22 @@ export class CerrarSesionComponent implements OnInit {
   ngOnInit(): void {
   }
   cerrarSesion(): void {
-    if (confirm("¿Seguro desea cerrar la sesión?")){
-      localStorage.removeItem('token');
-      this.sesionService.cambiarEstado(false);
-      this.router.navigate(['inicio']);
-    }
 
+    swal({
+      title: "Cerrar sesión",
+      text: "¿Seguro que quiere cerrar la sesión?",
+      icon: "warning",
+      dangerMode: true,
+    })
+    .then((cerrarSesion) => {
+      if (cerrarSesion) {
+        localStorage.removeItem('token');
+        this.sesionService.cambiarEstado(false);
+        this.router.navigate(['inicio']);
+        swal("Hasta pronto!", {
+          icon: "success",
+        });
+      }
+    });
   }
 }
