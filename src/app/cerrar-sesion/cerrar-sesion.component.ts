@@ -22,6 +22,10 @@ export class CerrarSesionComponent implements OnInit {
       text: "¿Seguro que quiere cerrar la sesión?",
       icon: "warning",
       dangerMode: true,
+      buttons: {
+        cancel: true,
+        confirm: true,
+      }
     })
     .then((cerrarSesion) => {
       if (cerrarSesion) {
