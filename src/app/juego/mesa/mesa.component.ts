@@ -7,6 +7,8 @@ import { Partida } from 'src/app/models/partida';
 import { ResultadoGenerico } from 'src/app/models/resultado-generico';
 import { CartaService } from 'src/app/services/carta.service';
 import { PartidaService } from 'src/app/services/partida.service';
+import { SweetAlert } from 'sweetalert/typings/core';
+const swal: SweetAlert = require('sweetalert');
 
 @Component({
   selector: 'app-mesa',
@@ -74,7 +76,7 @@ export class MesaComponent implements OnInit, OnDestroy {
         },
         error: (e) => {
           if(e.status == 401) {
-            alert("Debe iniciar sesión para empezar una partida");
+            swal({title:"Debe iniciar sesión para empezar una partida", icon: 'warning'});
             this.router.navigate(['iniciar-sesion']);
           }
           else {
@@ -115,13 +117,13 @@ export class MesaComponent implements OnInit, OnDestroy {
             this.repartir();
           }
           else {
-            alert(r.mensaje);
+            swal({title: 'Algo pasó', text: r.mensaje, icon: 'info'});
             this.router.navigate(['iniciar-sesion']);
             console.error(r.mensaje);
           }
         },
         error: (e) => {
-          alert(e);
+          swal({title: 'Error', text: e, icon: 'error'});
           this.router.navigate(['iniciar-sesion']);
           console.error(e);
         }
