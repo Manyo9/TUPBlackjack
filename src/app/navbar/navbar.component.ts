@@ -16,5 +16,10 @@ export class NavbarComponent implements OnInit {
         this.sesionIniciada = valor;
       }
     })
+    if (localStorage.getItem('token')) {
+      this.sesionService.cambiarEstado(true);
+    } else {
+      this.sesionService.cambiarEstado(false);
+    }
   }
 }
