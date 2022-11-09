@@ -20,6 +20,7 @@ import { IniciarSesionButtonComponent } from './iniciar-sesion-button/iniciar-se
 import { SesionIniciadaService } from './services/sesion-iniciada.service';
 import { ReporteService } from './services/reporte.service';
 import { ReporteComponent } from './reporte/reporte.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ReporteComponent } from './reporte/reporte.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   providers: [
     CartaService,
