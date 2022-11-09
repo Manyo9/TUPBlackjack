@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import swal from 'sweetalert';
 import { ResultadoGenerico } from '../models/resultado-generico';
 import { Usuario } from '../models/usuario';
 import { SesionIniciadaService } from '../services/sesion-iniciada.service';
@@ -48,16 +49,16 @@ export class IniciarSesionComponent implements OnInit {
           next: (res: ResultadoGenerico) => {
             if (res.ok && res.resultado != null) {
               localStorage.setItem('token',res.resultado);
-              alert('Bienvenido/a!');
+              swal({title:'Bienvenido/a!', icon:'success'});
               this.sesionService.cambiarEstado(true);
 
               this.router.navigate(['jugar']);
             } else {
-              alert(`Error: ${res.mensaje}`)
+              swal({title:'Error', text:`${res.mensaje}`, icon: 'error'})
             }
           },
           error: (e: any) => { 
-            alert(`Error al iniciar sesión: ${e.message}`);
+            swal({title:'Error al iniciar sesión', text: `${e.message}`, icon: 'error'});
             console.log(e);
            }
 
@@ -65,7 +66,7 @@ export class IniciarSesionComponent implements OnInit {
       );
     }
     else {
-      alert("Complete los campos");
+      swal({title:'Complete los campos', icon: 'warning'});
     }
   }
 
