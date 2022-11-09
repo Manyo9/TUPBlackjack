@@ -18,6 +18,8 @@ import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { IniciarSesionButtonComponent } from './iniciar-sesion-button/iniciar-sesion-button.component';
 import { SesionIniciadaService } from './services/sesion-iniciada.service';
+import { ReporteService } from './services/reporte.service';
+import { ReporteComponent } from './reporte/reporte.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { SesionIniciadaService } from './services/sesion-iniciada.service';
     IniciarSesionComponent,
     CerrarSesionComponent,
     NavbarComponent,
-    IniciarSesionButtonComponent
+    IniciarSesionButtonComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { SesionIniciadaService } from './services/sesion-iniciada.service';
     CartaService,
     PartidaService,
     UsuarioService,
-    SesionIniciadaService
+    SesionIniciadaService,
+    ReporteService
   ],
   bootstrap: [AppComponent]
 })
