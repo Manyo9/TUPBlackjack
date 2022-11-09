@@ -8,7 +8,7 @@ export class ReporteService {
   API_URL: string = 'http://localhost:3000/api/reportes/';
   constructor(private http: HttpClient) { }
   
-  obtenerIndiceVictoriasCroupier(): Observable<ResultadoGenerico> {
+  obtenerIndiceResultados(): Observable<ResultadoGenerico> {
     
     let auth_token = localStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -21,6 +21,53 @@ export class ReporteService {
     const requestOptions = { headers: headers };
 
 
-    return this.http.get<ResultadoGenerico>( this.API_URL + 'indiceVictoriasCroupier',requestOptions);
+    return this.http.get<ResultadoGenerico>( this.API_URL + 'indiceResultados',requestOptions);
+  }
+  obtenerPromedioVeintiuno(): Observable<ResultadoGenerico> {
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.get<ResultadoGenerico>( this.API_URL + 'promedioVeintiuno',requestOptions);
+  }
+
+  obtenerCantidadVictoriasUsuario(): Observable<ResultadoGenerico> {
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.get<ResultadoGenerico>( this.API_URL + 'cantidadVictoriasUsuario',requestOptions);
+  }
+
+  obtenerCantidadJuegosJugadores(): Observable<ResultadoGenerico> {
+    
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+
+        'Content-Type': 'application/json',
+
+        'Authorization': `Bearer ${auth_token}`
+
+      });
+    const requestOptions = { headers: headers };
+
+
+    return this.http.get<ResultadoGenerico>( this.API_URL + 'cantidadJuegosJugadores',requestOptions);
   }
 }

@@ -1,4 +1,18 @@
 <app-header titulo="Reportes" subtitulo="Información sobre los distintos juegos realizados" colorFondo="dark"></app-header>
-<div class="mesa">
+<div class="mesa text-light p-3">
+    <pre>
+        {{
+            promedioVeintiuno | json
+        }}
+    </pre>
+    <div class="bg-light rounded mb-1" style="width: 700px; height: 400px;">
+        <canvas baseChart type="bar" [data]="datosIndiceResultados"></canvas>
+      </div>
+      <div class="bg-light rounded mb-1" style="width: 700px; height: 400px;">
+        <canvas baseChart type="bar" [data]="datosVictoriasUsuario"></canvas>
+      </div>
+      <div class="bg-light rounded mb-1" style="width: 700px; min-height: 400px;">
+        <canvas baseChart type="bar" [data]="datosPromedioVeintiuno"></canvas>
+      </div>
 
 </div>
