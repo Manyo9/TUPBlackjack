@@ -1,18 +1,35 @@
-<app-header titulo="Reportes" subtitulo="Información sobre los distintos juegos realizados" colorFondo="dark"></app-header>
+<app-header titulo="Reportes" subtitulo="Información sobre los distintos juegos realizados" colorFondo="dark">
+</app-header>
 <div class="mesa text-light p-3">
-    <pre>
-        {{
-            promedioVeintiuno | json
-        }}
-    </pre>
-    <div class="bg-light rounded mb-1" style="width: 700px; height: 400px;">
+  <div class="row">
+    <div class="col-md-6 col-sm-12 p-5">
+      <h1 class="display-6">
+        Indices de resultados:
+      </h1>
+      <div class="bg-light rounded mb-3" style="width: 700px; height: 400px;">
         <canvas baseChart type="bar" [data]="datosIndiceResultados"></canvas>
       </div>
-      <div class="bg-light rounded mb-1" style="width: 700px; height: 400px;">
+      <h1 class="display-6">
+        10 usuarios con mas victorias:
+      </h1>
+      <div class="bg-light rounded mb-3" style="width: 700px; height: 400px;">
         <canvas baseChart type="bar" [data]="datosVictoriasUsuario"></canvas>
       </div>
-      <div class="bg-light rounded mb-1" style="width: 700px; min-height: 400px;">
+    </div>
+    <div class="col-md-6 col-sm-12 p-5">
+      <h1 class="display-6">
+        Promedio de jugadas con puntaje 21:
+      </h1>
+      <div class="bg-light rounded mb-3" style="width: 700px; min-height: 400px;">
         <canvas baseChart type="bar" [data]="datosPromedioVeintiuno"></canvas>
       </div>
+      <h1 class="display-6">
+        Cantidad de juegos y jugadores por día:
+      </h1>
+      <div class="bg-light rounded mb-3" style="width: 700px; min-height: 400px;">
+        <canvas baseChart type="line" [data]="datosCantidadJuegosJugadores"></canvas>
+      </div>
+    </div>
+  </div>
 
 </div>

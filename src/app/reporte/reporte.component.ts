@@ -18,7 +18,8 @@ export class ReporteComponent implements OnInit {
 
   datosIndiceResultados: ChartData<'bar'>;
   datosVictoriasUsuario: ChartData<'bar'>;
-  datosPromedioVeintiuno: ChartData<'pie'>;
+  datosPromedioVeintiuno: ChartData<'bar'>;
+  datosCantidadJuegosJugadores: ChartData<'line'>;
 
 
   constructor(
@@ -28,7 +29,7 @@ export class ReporteComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = new Subscription();
     this.obtenerIndiceResultados();
-    // this.obtenerCantidadJuegosJugadores();
+    this.obtenerCantidadJuegosJugadores();
     this.obtenerPromedioVeintiuno();
     this.obtenerCantidadVictoriasUsuario();
   }
@@ -37,7 +38,7 @@ export class ReporteComponent implements OnInit {
       this.servicioReporte.obtenerIndiceResultados().subscribe({
         next: (r: ResultadoGenerico) => {
           if (r.ok && r.resultado) {
-            
+
             this.indiceResultados = r.resultado;
             this.datosIndiceResultados = {
               labels: ['Indices de resultado'],
@@ -53,9 +54,9 @@ export class ReporteComponent implements OnInit {
                     f.cantidadVictorias
                   ],
                 }
-            );
+              );
             });
-            } else {
+          } else {
             console.error(r.mensaje);
           }
         },
@@ -71,6 +72,41 @@ export class ReporteComponent implements OnInit {
         next: (r: ResultadoGenerico) => {
           if (r.ok && r.resultado) {
             this.cantidadJuegosJugadores = r.resultado;
+            //   this.datosCantidadJuegosJugadores = {
+            //     labels : [
+            //       'January',
+            //       'February',
+            //       'March',
+            //       'April'
+            //     ],
+            //    datasets: [
+            //     {
+            //       data: [330, 600, 260, 700],
+            //       label: 'Jugadores'
+            //     },
+            //     {
+            //       data: [120, 455, 100, 340],
+            //       label: 'Juegos'
+            //     }
+            //   ]
+            // };
+            this.datosCantidadJuegosJugadores = {labels: [
+
+            ], datasets: [
+              {
+                label: 'Juegos',
+                data: []
+              },
+              {
+                label: 'Jugadores',
+                data: []
+              }
+            ]};
+            r.resultado.forEach((f:any) => {
+              this.datosCantidadJuegosJugadores.labels!.push(new Date(f.fecha).toLocaleDateString());
+              this.datosCantidadJuegosJugadores.datasets![0].data.push(f.juegos)
+              this.datosCantidadJuegosJugadores.datasets![1].data.push(f.jugadores)
+            });
           } else {
             console.error(r.mensaje);
           }
@@ -101,7 +137,7 @@ export class ReporteComponent implements OnInit {
                     f.victorias
                   ],
                 }
-            );
+              );
             });
           } else {
             console.error(r.mensaje);
