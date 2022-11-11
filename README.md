@@ -27,7 +27,12 @@ contraseña: lionelmessi
 usuario: otrojugador  
 contraseña: prueba123
 
-El admin es solo para testear la API.
+## Usuario admin
+
+usuario: administrador
+contraseña: pruebaadminblackjack 
+
+El admin existe para testear la API y para los reportes.
 
 ## Back-End
 
